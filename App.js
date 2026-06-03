@@ -20,6 +20,16 @@ function AppRouter() {
     }
   }, [user, loading]);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.OrientationBridge) {
+      if (page === 'login' || page === 'signup') {
+        window.OrientationBridge.setPortrait();
+      } else {
+        window.OrientationBridge.setLandscape();
+      }
+    }
+  }, [page]);
+
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f0f4f3', fontFamily: "'Segoe UI', sans-serif" }}>

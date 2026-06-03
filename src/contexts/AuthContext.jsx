@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, supabaseAdmin } from '../lib/supabase';
 
 const AuthContext = createContext(null);
 
@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
   const [role, setRole]       = useState(null); // 'doctor' or 'patient'
   const [profile, setProfile] = useState(null); // doctor/patient profile data
   const [loading, setLoading] = useState(true);
-  const [dbReady, setDbReady] = useState(false); // tracks if DB tables exist
+  const [dbReady, setDbReady] = useState(true); // optimistic; set false only if PGRST205
 
   // Check existing session on mount
   useEffect(() => {
@@ -75,7 +75,7 @@ export function AuthProvider({ children }) {
             setProfile(local);
             // Try inserting the missing profile row
             try {
-              await supabase.from('doctors').upsert(local);
+              await supabaseAdmin.from('doctors').upsert(local);
             } catch (e) {
               console.warn('Could not sync local profile to DB:', e.message);
             }
@@ -147,7 +147,7 @@ export function AuthProvider({ children }) {
 
     // Try to insert into DB
     try {
-      const { error: profileError } = await supabase.from('doctors').insert(profileData);
+      const { error: profileError } = await supabaseAdmin.from('doctors').insert(profileData);
       if (profileError) {
         if (profileError.code === 'PGRST205') {
           console.warn('Doctors table not found — saving profile locally only.');

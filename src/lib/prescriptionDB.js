@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabaseAdmin as supabase } from './supabase';
 
 // Save prescription to Supabase database
 // 1. Find or create patient by (mobile, doctor_id)
