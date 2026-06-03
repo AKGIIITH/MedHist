@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { TL, T } from "../../constants/theme";
+import { useDoctorConfigSync } from "../../hooks/useDoctorConfigSync";
 
 // Searchable dropdown + free-text commit.
 // - Pick from list to set value
@@ -8,15 +9,7 @@ import { TL, T } from "../../constants/theme";
 export default function SearchCombo({ value, onChange, options: initOpts, placeholder = "–", align = "center", proximitySort = false, storageKey }) {
   const [open,  setOpen]  = useState(false);
   const [query, setQuery] = useState("");
-  const [extra, setExtra] = useState(() => {
-    if (storageKey && typeof window !== 'undefined' && window.localStorage) {
-      try {
-        const saved = localStorage.getItem(`searchcombo_${storageKey}`);
-        if (saved) return JSON.parse(saved);
-      } catch (e) {}
-    }
-    return [];
-  });
+  const [extra, setExtra] = useDoctorConfigSync('searchcombo', storageKey);
   const ref = useRef(null);
   
   const options = [...initOpts, ...extra];
@@ -46,13 +39,7 @@ export default function SearchCombo({ value, onChange, options: initOpts, placeh
     const v = query.trim();
     if (v) { 
       if (!options.includes(v)) {
-        setExtra(p => {
-          const next = [...p, v];
-          if (storageKey && typeof window !== 'undefined' && window.localStorage) {
-            localStorage.setItem(`searchcombo_${storageKey}`, JSON.stringify(next));
-          }
-          return next;
-        });
+        setExtra(p => [...p, v]);
       }
       onChange(v); 
     }

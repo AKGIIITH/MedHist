@@ -14,16 +14,16 @@ export default function HeaderSection({ clinic, setClinic, address, setAddress, 
           </svg>
         </div>
         <div style={{ minWidth: 0, flex: 1 }}>
-          <input value={clinic}  onChange={e => setClinic(e.target.value)}  style={{ fontSize: 20, fontWeight: 700, color: T, border: "none", outline: "none", background: "transparent", display: "block", width: "100%" }} />
-          <input value={address} onChange={e => setAddress(e.target.value)} style={{ fontSize: 11, color: "#aaa", border: "none", outline: "none", background: "transparent", display: "block", width: "100%" }} />
+          <input value={clinic} onChange={e => setClinic(e.target.value)} style={{ fontSize: 25, fontWeight: 700, color: T, border: "none", outline: "none", background: "transparent", display: "block", width: "100%" }} />
+          <input value={address} onChange={e => setAddress(e.target.value)} style={{ fontSize: 12, color: "#aaa", border: "none", outline: "none", background: "transparent", display: "block", width: "100%" }} />
         </div>
       </div>
       {/* Right — doctor info */}
       <div style={{ textAlign: "right", flexShrink: 0 }}>
-        <input value={drName} onChange={e => setDrName(e.target.value)} style={{ fontSize: 14, fontWeight: 700, color: "#333", border: "none", outline: "none", background: "transparent", textAlign: "right", display: "block", width: "100%" }} />
-        <input value={drQual} onChange={e => setDrQual(e.target.value)} style={{ fontSize: 10.5, color: "#888", border: "none", outline: "none", background: "transparent", textAlign: "right", display: "block", width: "100%" }} />
-        <input value={drReg}  onChange={e => setDrReg(e.target.value)}  style={{ fontSize: 10, color: "#bbb", border: "none", outline: "none", background: "transparent", textAlign: "right", display: "block", width: "100%" }} />
-        <div style={{ fontSize: 10, color: "#bbb", marginTop: 2 }}>{today}</div>
+        <input value={drName} onChange={e => setDrName(e.target.value)} style={{ fontSize: 18, fontWeight: 700, color: "#333", border: "none", outline: "none", background: "transparent", textAlign: "right", display: "block", width: "100%" }} />
+        <input value={drQual} onChange={e => setDrQual(e.target.value)} style={{ fontSize: 13, color: "#888", border: "none", outline: "none", background: "transparent", textAlign: "right", display: "block", width: "100%" }} />
+        <input value={drReg} onChange={e => setDrReg(e.target.value)} style={{ fontSize: 12, color: "#bbb", border: "none", outline: "none", background: "transparent", textAlign: "right", display: "block", width: "100%" }} />
+        <div style={{ fontSize: 11, color: "#bbb", marginTop: 2 }}>{today}</div>
       </div>
     </div>
   );

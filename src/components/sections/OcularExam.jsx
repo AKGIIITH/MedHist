@@ -3,11 +3,11 @@ import Section from "../ui/Section";
 import SingleChips from "../ui/SingleChips";
 import TextInput from "../ui/TextInput";
 
-// Ocular Examination: Cover Test, EOM, ROPLAS + Gonioscopy (text) below ROPLAS
+// Ocular Examination: Cover Test, EOM + Gonioscopy (text)
+// ROPLAS removed from form — kept in PDF as handwrite-only diagram zone
 export default function OcularExam({
   cover, setCover,
   eom, setEom,
-  roplas, setRoplas,
   gonioOD, setGonioOD,
   gonioOS, setGonioOS,
 }) {
@@ -16,7 +16,6 @@ export default function OcularExam({
       {[
         { label: "Cover Test", opts: OPTIONS.cover,  val: cover,  set: setCover  },
         { label: "EOM",        opts: OPTIONS.eom,    val: eom,    set: setEom    },
-        { label: "ROPLAS",     opts: OPTIONS.roplas, val: roplas, set: setRoplas },
       ].map(row => (
         <div key={row.label} style={{ marginBottom: 9 }}>
           <div style={{ fontSize: 10.5, color: "#aaa", marginBottom: 3 }}>{row.label}</div>
@@ -24,7 +23,7 @@ export default function OcularExam({
         </div>
       ))}
 
-      {/* Gonioscopy text inputs — placed below ROPLAS, no diagrams */}
+      {/* Gonioscopy text inputs */}
       <div style={{ marginTop: 6 }}>
         <div style={{ fontSize: 10.5, color: "#aaa", marginBottom: 5 }}>Gonio (4 mirror)</div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>

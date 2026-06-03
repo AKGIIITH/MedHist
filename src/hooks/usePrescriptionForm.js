@@ -20,8 +20,9 @@ export default function usePrescriptionForm() {
   const [history,    setHistory]    = useState([]);
   const [allergy,    setAllergy]    = useState([]);
 
-  // BP and Sugar
-  const [bp,      setBp]      = useState("");
+  // BP (split into systolic/diastolic) and Sugar
+  const [bpSys,   setBpSys]   = useState("");
+  const [bpDia,   setBpDia]   = useState("");
   const [sugarF,  setSugarF]  = useState("");
   const [sugarPP, setSugarPP] = useState("");
   const [sugarR,  setSugarR]  = useState("");
@@ -34,10 +35,9 @@ export default function usePrescriptionForm() {
   const [iop, setIop] = useState({ r:"", l:"" });
   const setI = k => v => setIop(p => ({ ...p, [k]: v }));
 
-  // Ocular exam
+  // Ocular exam (ROPLAS removed from form, kept in PDF as handwrite zone)
   const [cover,  setCover]  = useState("");
   const [eom,    setEom]    = useState("");
-  const [roplas, setRoplas] = useState("");
 
   // Anterior segment
   const [antRE, setAntRE] = useState(["Normal"]);
@@ -52,9 +52,10 @@ export default function usePrescriptionForm() {
   const [cdLE,    setCdLE]    = useState("");
   const [prNotch, setPrNotch] = useState("");
 
-  // Refraction
+  // Refraction (added rxNA for Near Addition)
   const [rx, setRx] = useState({ reS:"", reCY:"", reAX:"", reBCVA:"", leS:"", leCY:"", leAX:"", leBCVA:"" });
   const setR = k => v => setRx(p => ({ ...p, [k]: v }));
+  const [rxNA, setRxNA] = useState("");
 
   // Medicines table
   const [meds, setMeds] = useState([{ medicine:"", dosage:"", duration:"", instructions:"" }]);
@@ -72,13 +73,13 @@ export default function usePrescriptionForm() {
     clinic, address, drName, drQual, drReg,
     name, mobile, age, sex,
     complaints, history, allergy,
-    bp, sugarF, sugarPP, sugarR,
+    bpSys, bpDia, sugarF, sugarPP, sugarR,
     va, iop,
-    cover, eom, roplas,
+    cover, eom,
     antRE, antLE,
     gonioOD, gonioOS,
     cdRE, cdLE, prNotch,
-    rx,
+    rx, rxNA,
     meds,
     diagnosis, advice, investigations, notes,
     today,
@@ -88,14 +89,15 @@ export default function usePrescriptionForm() {
   const resetForm = () => {
     setName(""); setMobile(""); setAge(""); setSex("");
     setComplaints([]); setHistory([]); setAllergy([]);
-    setBp(""); setSugarF(""); setSugarPP(""); setSugarR("");
+    setBpSys(""); setBpDia(""); setSugarF(""); setSugarPP(""); setSugarR("");
     setVa({ ru:"", lu:"", rp:"", lp:"", rg:"", lg:"" });
     setIop({ r:"", l:"" });
-    setCover(""); setEom(""); setRoplas("");
+    setCover(""); setEom("");
     setAntRE(["Normal"]); setAntLE(["Normal"]);
     setGonioOD(""); setGonioOS("");
     setCdRE(""); setCdLE(""); setPrNotch("");
     setRx({ reS:"", reCY:"", reAX:"", reBCVA:"", leS:"", leCY:"", leAX:"", leBCVA:"" });
+    setRxNA("");
     setMeds([{ medicine:"", dosage:"", duration:"", instructions:"" }]);
     setDiagnosis([]); setAdvice([]); setInvestigations([]); setNotes("");
   };
@@ -109,13 +111,13 @@ export default function usePrescriptionForm() {
     // Chips
     complaints, setComplaints, history, setHistory, allergy, setAllergy,
     // BP / Sugar
-    bp, setBp, sugarF, setSugarF, sugarPP, setSugarPP, sugarR, setSugarR,
+    bpSys, setBpSys, bpDia, setBpDia, sugarF, setSugarF, sugarPP, setSugarPP, sugarR, setSugarR,
     // VA
     va, setV,
     // IOP
     iop, setI,
     // Ocular
-    cover, setCover, eom, setEom, roplas, setRoplas,
+    cover, setCover, eom, setEom,
     // Anterior
     antRE, setAntRE, antLE, setAntLE,
     // Gonio
@@ -123,7 +125,7 @@ export default function usePrescriptionForm() {
     // Disc
     cdRE, setCdRE, cdLE, setCdLE, prNotch, setPrNotch,
     // Refraction
-    rx, setR,
+    rx, setR, rxNA, setRxNA,
     // Medicines
     meds, setMeds,
     // Diagnosis etc.

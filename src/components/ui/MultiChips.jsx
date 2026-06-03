@@ -1,16 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { T } from "../../constants/theme";
+import { useDoctorConfigSync } from "../../hooks/useDoctorConfigSync";
 
 export default function MultiChips({ options: initOpts, selected, onChange, color = T, storageKey }) {
-  const [extra, setExtra] = useState(() => {
-    if (storageKey && typeof window !== 'undefined' && window.localStorage) {
-      try {
-        const saved = localStorage.getItem(`multichips_${storageKey}`);
-        if (saved) return JSON.parse(saved);
-      } catch (e) {}
-    }
-    return [];
-  });
+  const [extra, setExtra] = useDoctorConfigSync('multichips', storageKey);
   const [adding, setAdding] = useState(false);
   const [custom, setCustom] = useState("");
   const inputRef = useRef(null);
@@ -21,13 +14,7 @@ export default function MultiChips({ options: initOpts, selected, onChange, colo
   const commit = () => {
     const v = custom.trim();
     if (v && !all.includes(v)) {
-      setExtra(p => {
-        const next = [...p, v];
-        if (storageKey && typeof window !== 'undefined' && window.localStorage) {
-          localStorage.setItem(`multichips_${storageKey}`, JSON.stringify(next));
-        }
-        return next;
-      });
+      setExtra(p => [...p, v]);
     }
     if (v && !selected.includes(v)) onChange([...selected, v]);
     setCustom(""); setAdding(false);

@@ -3,9 +3,10 @@ import { SC_OPTS, AX_OPTS, OPTIONS } from "../../constants/options";
 import Section from "../ui/Section";
 import SearchCombo from "../ui/SearchCombo";
 import SelectInput from "../ui/SelectInput";
+import TextInput from "../ui/TextInput";
 
-// Refraction (Rx) — Sphere/CY with proximity sort, AX, BCVA
-export default function RefractionSection({ rx, setR }) {
+// Refraction (Rx) — Sphere/CY with proximity sort, AX, BCVA + NA row
+export default function RefractionSection({ rx, setR, rxNA, setRxNA }) {
   return (
     <Section title="Refraction (Rx)">
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -29,6 +30,13 @@ export default function RefractionSection({ rx, setR }) {
               <td style={td}><SelectInput value={rx[row.bk]} onChange={setR(row.bk)} options={OPTIONS.va} /></td>
             </tr>
           ))}
+          {/* NA (Near Addition) — single text input spanning all data columns */}
+          <tr>
+            <td style={{ ...td, fontWeight: 700, fontSize: 14, color: T, textAlign: "center" }}>NA</td>
+            <td colSpan={4} style={td}>
+              <TextInput value={rxNA} onChange={setRxNA} placeholder="Near Addition / Notes…" align="left" />
+            </td>
+          </tr>
         </tbody>
       </table>
     </Section>
